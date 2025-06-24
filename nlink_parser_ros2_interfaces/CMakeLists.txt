@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5.0)
 project(nlink_parser_ros2_interfaces)
 
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -46,6 +46,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
   DEPENDENCIES builtin_interfaces 
 )
+
+rosidl_get_typesupport_target(cpp_typesupport_target
+  ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+ament_export_dependencies(rosidl_default_runtime)
+ament_export_targets(${cpp_typesupport_target})
 
 # ament_export_dependencies(rosidl_default_runtime)
 ament_package()
